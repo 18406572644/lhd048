@@ -49,13 +49,13 @@ const ImportModal: React.FC<ImportModalProps> = ({ open, onClose, folderId }) =>
     try {
       const result = await window.electronAPI.pdf.selectFiles();
       if (result.success && result.data && result.data.length > 0) {
-        const newFiles: ImportFile[] = result.data.map((filePath: string) => {
-          const parts = filePath.split(/[\\/]/);
+        const newFiles: ImportFile[] = result.data.map((file: { path: string; size: number }) => {
+          const parts = file.path.split(/[\\/]/);
           const name = parts[parts.length - 1];
           return {
-            path: filePath,
+            path: file.path,
             name,
-            size: 0,
+            size: file.size,
             status: 'pending',
           };
         });

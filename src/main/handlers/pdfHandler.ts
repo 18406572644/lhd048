@@ -149,7 +149,15 @@ export function registerPDFHandlers(ipcMain: any, db: any, dialog: any) {
         return { success: true, data: [] };
       }
       
-      return { success: true, data: result.filePaths };
+      const files = result.filePaths.map(filePath => {
+        const stats = fs.statSync(filePath);
+        return {
+          path: filePath,
+          size: stats.size,
+        };
+      });
+      
+      return { success: true, data: files };
     } catch (error: any) {
       return { success: false, error: error.message };
     }

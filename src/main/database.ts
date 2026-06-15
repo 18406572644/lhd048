@@ -143,6 +143,26 @@ export class Database {
     return this.db;
   }
 
+  public prepare(sql: string): any {
+    return this.db.prepare(sql);
+  }
+
+  public run(sql: string, params: any[] = []): any {
+    return this.db.prepare(sql).run(...params);
+  }
+
+  public get(sql: string, params: any[] = []): any {
+    return this.db.prepare(sql).get(...params);
+  }
+
+  public all(sql: string, params: any[] = []): any[] {
+    return this.db.prepare(sql).all(...params);
+  }
+
+  public transaction(fn: Function): any {
+    return this.db.transaction(fn);
+  }
+
   public close(): void {
     this.db.close();
   }
