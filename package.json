@@ -8,7 +8,7 @@
   "scripts": {
     "dev:renderer": "webpack serve --mode development --config webpack.renderer.js",
     "dev:main": "webpack --mode development --config webpack.main.js --watch",
-    "dev": "concurrently \"npm:dev:main\" \"npm:dev:renderer\" \"wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .\"",
+    "dev": "concurrently \"npm:dev:main\" \"npm:dev:renderer\" \"wait-on http://localhost:3048 && cross-env NODE_ENV=development electron .\"",
     "build:renderer": "webpack --mode production --config webpack.renderer.js",
     "build:main": "webpack --mode production --config webpack.main.js",
     "build": "npm run build:main && npm run build:renderer",

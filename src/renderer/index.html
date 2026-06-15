@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' http://localhost:* ws://localhost:*;" />
   <title>PDF Cabinet - 文档管理</title>
+  <script>
+    if (typeof global === 'undefined') {
+      window.global = window;
+    }
+    if (typeof process === 'undefined') {
+      window.process = { env: {}, browser: true, versions: {}, platform: 'browser' };
+    }
+    if (typeof Buffer === 'undefined') {
+      window.Buffer = {
+        from: function(arr) { return new Uint8Array(arr); },
+        isBuffer: function() { return false; },
+        alloc: function(size) { return new Uint8Array(size); }
+      };
+    }
+    window.addEventListener('error', function(event) {
+      console.error('GLOBAL ERROR:', event.message, 'at', event.filename + ':' + event.lineno + ':' + event.colno);
+    });
+    window.addEventListener('unhandledrejection', function(event) {
+      console.error('UNHANDLED PROMISE REJECTION:', event.reason);
+    });
+  </script>
 </head>
 <body style="margin: 0; padding: 0; overflow: hidden;">
   <div id="root"></div>
